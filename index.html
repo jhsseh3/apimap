@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="OpenStreetMap 장소 검색으로 출발지와 도착지 사이의 자동차 도로 거리를 확인하세요."
+    />
+    <meta name="theme-color" content="#f5f7f2" />
+    <title>두 지점 사이 거리 | 길이음</title>
+    <link rel="preconnect" href="https://nominatim.openstreetmap.org" />
+    <link rel="preconnect" href="https://router.project-osrm.org" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="길이음 홈">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M8 23.5 13.2 8l5.6 16 5.2-15.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="8" cy="23.5" r="3" fill="currentColor" />
+              <circle cx="24" cy="8.5" r="3" fill="currentColor" />
+            </svg>
+          </span>
+          <span>길이음</span>
+        </a>
+        <span class="topbar-note">OpenStreetMap 기반 거리 찾기</span>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> 두 장소 사이의 거리를 찾아보세요</div>
+        <h1 id="page-title">어디서 어디까지,<br /><span>얼마나 멀까요?</span></h1>
+        <p class="hero-copy">장소 이름을 검색하고 자동차 도로 거리를 확인해 보세요.</p>
+      </section>
+
+      <section class="planner" aria-label="거리 계산기">
+        <div class="route-fields">
+          <div class="route-rail" aria-hidden="true">
+            <span class="rail-point rail-start"></span>
+            <span class="rail-line"></span>
+            <span class="rail-point rail-end"></span>
+          </div>
+          <div class="fields">
+            <div class="field-group">
+              <label for="origin-input">출발지</label>
+              <div class="input-row">
+                <input
+                  id="origin-input"
+                  type="search"
+                  placeholder="예: 서울역"
+                  autocomplete="off"
+                  aria-describedby="origin-status"
+                />
+                <button class="search-button" type="button" data-search="origin">장소 검색</button>
+              </div>
+              <p class="field-status" id="origin-status" aria-live="polite"></p>
+              <div class="results" id="origin-results" role="listbox" aria-label="출발지 검색 결과" hidden></div>
+            </div>
+
+            <div class="field-divider"></div>
+
+            <div class="field-group">
+              <label for="destination-input">도착지</label>
+              <div class="input-row">
+                <input
+                  id="destination-input"
+                  type="search"
+                  placeholder="예: 부산역"
+                  autocomplete="off"
+                  aria-describedby="destination-status"
+                />
+                <button class="search-button" type="button" data-search="destination">장소 검색</button>
+              </div>
+              <p class="field-status" id="destination-status" aria-live="polite"></p>
+              <div class="results" id="destination-results" role="listbox" aria-label="도착지 검색 결과" hidden></div>
+            </div>
+          </div>
+        </div>
+
+        <button class="calculate-button" id="calculate-button" type="button" disabled>
+          <span>거리 계산하기</span>
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="result-card" id="result-card" aria-live="polite" hidden>
+        <div class="result-heading">
+          <span class="result-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 18.5 8.5 5l7 14 4.5-13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="4" cy="18.5" r="2" fill="currentColor" />
+              <circle cx="20" cy="5.5" r="2" fill="currentColor" />
+            </svg>
+          </span>
+          <span>자동차 도로 거리</span>
+        </div>
+        <p class="distance" id="distance-value"></p>
+        <p class="route-summary" id="route-summary"></p>
+        <a class="map-link" id="map-link" target="_blank" rel="noopener noreferrer">
+          지도에서 보기
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M11 4h5v5m-.5-4.5L9 11m3-1v5H5V8h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </section>
+
+      <footer class="footer">
+        <span>장소 검색: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a></span>
+        <span>경로 데이터: <a href="https://project-osrm.org/" target="_blank" rel="noopener noreferrer">OSRM</a></span>
+      </footer>
+    </main>
+  </body>
+</html>
